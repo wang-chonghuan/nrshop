@@ -47,7 +47,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout): JSX.Element {
 
   return (
     <ManagedUIContext>
-      <GitHubBanner />
       <Refine
         routerProvider={routerProvider}
         dataProvider={dataProvider(PROXY_URL)}

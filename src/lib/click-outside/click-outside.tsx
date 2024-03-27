@@ -7,6 +7,7 @@ import React, {
   forwardRef,
   Ref,
   PropsWithChildren,
+  ForwardRefRenderFunction,
 } from "react";
 import mergeRefs from "react-merge-refs";
 import hasParent from "./has-parent";
@@ -21,9 +22,11 @@ interface ClickOutsideProps {
  * Use forward ref to allow this component to be used with other components like
  * focus-trap-react, that rely on the same type of ref forwarding to direct children
  */
-const ClickOutside: FC<PropsWithChildren<ClickOutsideProps>> = forwardRef(
-  ({ active = true, onClick, children }, forwardedRef) => {
-    const innerRef = useRef();
+const ClickOutsideInner: ForwardRefRenderFunction<any, PropsWithChildren<ClickOutsideProps>> = (
+  { active = true, onClick, children },
+  forwardedRef
+) => {
+  const innerRef = useRef<any>(null);
 
     const child = children
       ? (React.Children.only(children) as any) // eslint-disable-line
@@ -80,8 +83,9 @@ const ClickOutside: FC<PropsWithChildren<ClickOutsideProps>> = forwardRef(
     return React.cloneElement(child, {
       ref: mergeRefs([composedRefCallback, innerRef, forwardedRef]),
     });
-  },
-);
+  };
 
+const ClickOutside = forwardRef(ClickOutsideInner);
 ClickOutside.displayName = "ClickOutside";
+
 export default ClickOutside;
