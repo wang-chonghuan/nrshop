@@ -108,7 +108,7 @@ const Layout: React.FC<
     <div className={cn(s.root)}>
       <Navbar links={collections} />
       <main className="fit">{children}</main>
-      <Footer />
+      {/**<Footer />**/}
       <ModalUI />
       {collections && <SidebarUI links={collections} />}
       <FeatureBar
